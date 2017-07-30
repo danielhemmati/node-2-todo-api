@@ -19,7 +19,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', function(err, db){
         // })
 
     // findOneAndDelete ... this one target the first on that see the match and it will print what he deleted 
-    // Users is the challenhe i done . successfully
+    
             db.collection('Users').findOneAndDelete({_id: new ObjectID("597d064ceba6edcd447e0db8")}).then(function(result){
                 console.log(result);
             })
