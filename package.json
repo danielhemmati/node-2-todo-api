@@ -9,6 +9,9 @@
   "author": "Daniel Hemmati",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^2.2.5"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.5",
+    "mongoose": "^4.11.5"
   }
 }
