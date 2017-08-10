@@ -5,7 +5,7 @@ const {app}  = require('./../server.js');// i like to write extenstion
 const {Todo} = require('./../models/todo.js');
 
 // there is a problem that if you run the test , you have something in your database so the line that says toB(0)
-// will fail so beacause of that , before we run the test case we should wipe the database (it is just for test)
+// will fail so beacause of that , before we run the test case we should wipe the database (and really is going to delete //all of the db)
 // it doesn't actually wipe you database
 
 beforeEach(function(done){
