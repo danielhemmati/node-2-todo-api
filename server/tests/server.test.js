@@ -1,6 +1,8 @@
 const expect  = require('expect');
 const request = require('supertest');
 
+const {ObjectID} = require('mongodb');
+
 const {app}  = require('./../server.js');// i like to write extenstion 
 const {Todo} = require('./../models/todo.js');
 
@@ -9,8 +11,10 @@ const {Todo} = require('./../models/todo.js');
 
 //now we are going to insert some datas for GET route 
 const todos = [{
+    _id: new ObjectID(),
     text:'first test todos'
 },{
+    _id: new ObjectID(),
     text: 'second test todos'
 }];
 
@@ -82,3 +86,33 @@ describe('GET /todos', function(){
             .end(done);
     })
 })
+
+describe('GET /todos/:id', function(){
+    it('should return todo doc', function(done){
+        request(app)
+            .get(`/todos/${todos[0]._id.toHexString()}`)
+            .expect(200)
+            .expect(function(res){
+                // the reason why we write todo you can see the code in the server.js file in line 52
+                expect(res.body.todo.text).toBe(todos[0].text); // the last one we define it at line 15
+            })
+            .end(done)
+    });
+
+    it('should return 404 if todo not found', function(done){
+        // toHexString() make string so we can use in the url
+        var hexId = new ObjectID().toHexString();
+        // we are giving it random id that ObjectID make ... so we expect 404
+        request(app)
+            .get(`/todos/${hexId}`)
+            .expect(404)
+            .end(done);
+    })
+
+    it('should return 404 for non-object ids', function(done){
+        request(app)
+            .get('/todos/123abc')// of course this not the valid id 
+            .expect(404)
+            .end(done);
+    })
+});
