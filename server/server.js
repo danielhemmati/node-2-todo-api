@@ -10,6 +10,7 @@ var {Todo}     = require('./models/todo.js');
 var {User}     = require('./models/user.js');
 
 var app = express();
+const port = process.env.PORT || 3000;
 // this is middleware that we want express to use to server understand the json data and can convert it to the object 
 app.use(bodyParser.json());
 
@@ -57,8 +58,8 @@ app.get('/todos/:id', function(req, res){
 
 });
 
-app.listen(3000, function(){
-    console.log('started on port 3000');
+app.listen(port, function(){
+    console.log(`started up at port ${port}`);
 })
 
 module.exports = {
